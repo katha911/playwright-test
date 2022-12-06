@@ -19,7 +19,7 @@ jobs:
     name: E2E testing
     runs-on: ubuntu-latest
     steps:
-    - name: Setup
+      - name: Setup
         if: success() || failure()
         id: setup
         run: |
