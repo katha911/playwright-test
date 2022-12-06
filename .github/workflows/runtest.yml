@@ -46,10 +46,11 @@ jobs:
     - name: Generate report
       if: success() || failure()
       run: |
-      mv playwright-report/index.html playwright-report/index.html
+        mv playwright-report/index.html playwright-report/index.html
     - name: Move all report to today date
       if: success() || failure()
-      run: mv playwright-report ${{steps.setup.outputs.DATE}}
+      run: 
+        mv playwright-report ${{steps.setup.outputs.DATE}}
     - name: Send notification to slack
       uses: 8398a7/action-slack@v2
       if: success() || failure()
