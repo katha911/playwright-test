@@ -11,7 +11,6 @@ on:
     - cron: '0 22 * * *'
 
 env:
-  CYPRESS_CI: true
   PROJECT_NAME: 'playwright-test'
 
 jobs:
@@ -19,7 +18,11 @@ jobs:
     name: E2E testing
     runs-on: ubuntu-latest
     steps:
-      - name: Setup
+     - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: Setup
         if: success() || failure()
         id: setup
         run: |
@@ -28,10 +31,6 @@ jobs:
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           echo "::set-output name=BRANCH_NAME::$BRANCH_NAME"
           echo "::set-output name=PROJECT::$PROJECT_NAME/develop/$TODAY_DATE"
-     - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
