@@ -52,7 +52,7 @@ jobs:
           email: ${{ secrets.RENDER_EMAIL }}
           password: ${{ secrets.RENDER_PASSWORD }}
           token: ${{ secrets.TOKEN }}
-          service-id: ${{ RENDER_API_KEY }}
+          service-id: ${{ secrets.RENDER_API_KEY }}
       - name: Send notification to slack
         uses: 8398a7/action-slack@v2
         if: success() || failure()
