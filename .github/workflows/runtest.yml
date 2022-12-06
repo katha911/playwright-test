@@ -41,17 +41,14 @@ jobs:
         if: always()
         with:
           name: playwright-report
-          path: playwright-report/
+          path: playwright-report/index.html
           retention-days: 30
-      - name: Move report to today date
-        if: success() || failure()
-        run: 
-          mv playwright-report ${{steps.setup.outputs.DATE}}
       - name: Deploy reports
         uses: bounceapp/render-action@0.2.0
         with:
           folder: './${{steps.setup.outputs.DATE}}'
           bucket: 'automated-tester/${{steps.setup.outputs.PROJECT}}'
+          bucket-region: 'SHA256:CUlRyv4TZ0vmHwmhsJkII/pz2cO4IgvR+ykqnRsOQFs'
         env:
           email: ${{ secrets.RENDER_EMAIL }}
           password: ${{ secrets.RENDER_PASSWORD }}
