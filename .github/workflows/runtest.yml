@@ -48,7 +48,6 @@ jobs:
         with:
           folder: 'playwright-report/index.html./${{steps.setup.outputs.DATE}}'
           bucket: 'automated-tester/${{steps.setup.outputs.PROJECT}}'
-          bucket-region: 'SHA256:CUlRyv4TZ0vmHwmhsJkII/pz2cO4IgvR+ykqnRsOQFs'
         env:
           email: ${{ secrets.RENDER_EMAIL }}
           password: ${{ secrets.RENDER_PASSWORD }}
