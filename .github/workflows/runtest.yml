@@ -46,8 +46,7 @@ jobs:
       - name: Deploy reports
         uses: bounceapp/render-action@0.2.0
         with:
-          folder: 'playwright-report/${{steps.setup.outputs.DATE}}'
-          bucket: 'automated-tester/${{steps.setup.outputs.PROJECT}}'
+          path: 'playwright-report/${{steps.setup.outputs.DATE}}'
         env:
           email: ${{ secrets.RENDER_EMAIL }}
           password: ${{ secrets.RENDER_PASSWORD }}
