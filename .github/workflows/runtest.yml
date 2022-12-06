@@ -46,10 +46,13 @@ jobs:
       - name: Move report to today date
         if: success() || failure()
         run: 
-          mv playwright-report/index.html ${{steps.setup.outputs.DATE}}
+          mv playwright-report ${{steps.setup.outputs.DATE}}
       - name: Deploy reports
         uses: bounceapp/render-action@0.2.0
         with:
+          folder: './${{steps.setup.outputs.DATE}}'
+          bucket: 'automated-tester/${{steps.setup.outputs.PROJECT}}'
+        env:
           email: ${{ secrets.RENDER_EMAIL }}
           password: ${{ secrets.RENDER_PASSWORD }}
           token: ${{ secrets.TOKEN }}
