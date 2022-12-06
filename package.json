@@ -6,14 +6,16 @@
   "scripts": {
     "playwright:runtest": "npx playwright test",
     "playwright:debug": "npx playwright test --debug",
-    "playwright:codegen" : "npx playwright codegen",
-    "playwright:trace-on" : "npx playwright test --trace on"
-    
+    "playwright:codegen": "npx playwright codegen",
+    "playwright:trace-on": "npx playwright test --trace on"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.28.1"
+  },
+  "dependencies": {
+    "playwright-merge-html-reports": "^0.2.6"
   }
 }
