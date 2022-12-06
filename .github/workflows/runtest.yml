@@ -15,10 +15,19 @@ env:
 
 jobs:
   test:
-   timeout-minutes: 60
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - name: Setup
+        if: success() || failure()
+        id: setup
+        run: |
+          TODAY_DATE=`date +"%d.%m.%y"`
+          echo "::set-output name=DATE::$TODAY_DATE"
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          echo "::set-output name=BRANCH_NAME::$BRANCH_NAME"
+          echo "::set-output name=PROJECT::$PROJECT_NAME/develop/$TODAY_DATE"v
+    steps:
     - uses: actions/setup-node@v3
       with:
         node-version: 16
@@ -34,14 +43,14 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
-   - name: Generate report
-        # if: success() || failure()
-        run: |
-          mv playwright-report/index.html playwright-report/index.html
+    - name: Generate report
+          if: success() || failure()
+          run: |
+            mv playwright-report/index.html playwright-report/index.html
     - name: Move all report to today date
-        # if: success() || failure()
-        run: mv playwright-report ${{steps.setup.outputs.DATE}}
-    - name: Send notification to slack
+          if: success() || failure()
+          run: mv playwright-report ${{steps.setup.outputs.DATE}}
+      - name: Send notification to slack
         uses: 8398a7/action-slack@v2
         if: success() || failure()
         with:
