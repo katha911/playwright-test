@@ -14,23 +14,13 @@ env:
   PROJECT_NAME: 'playwright-test'
 
 jobs:
-   test:
-    name: E2E testing
+   timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-     - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
         node-version: 16
-    - name: Setup
-        if: success() || failure()
-        id: setup
-        run: |
-          TODAY_DATE=`date +"%d.%m.%y"`
-          echo "::set-output name=DATE::$TODAY_DATE"
-          BRANCH_NAME=${GITHUB_REF#refs/heads/}
-          echo "::set-output name=BRANCH_NAME::$BRANCH_NAME"
-          echo "::set-output name=PROJECT::$PROJECT_NAME/develop/$TODAY_DATE"
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
