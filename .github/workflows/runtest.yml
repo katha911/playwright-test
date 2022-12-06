@@ -45,7 +45,14 @@ jobs:
       - name: Move report to today date
         if: success() || failure()
         run: 
-          mv playwright-report ${{steps.setup.outputs.DATE}}
+          mv playwright-report/index.html ${{steps.setup.outputs.DATE}}
+      - name: Deploy reports
+        uses: bounceapp/render-action@0.2.0
+        with:
+          email: ${{ secrets.RENDER_EMAIL }}
+          password: ${{ secrets.RENDER_PASSWORD }}
+          token: ${{ secrets.TOKEN }}
+          service-id: ${{ RENDER_API_KEY }}
       - name: Send notification to slack
         uses: 8398a7/action-slack@v2
         if: success() || failure()
