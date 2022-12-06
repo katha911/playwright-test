@@ -25,10 +25,3 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
-    - name: Generate report
-        if: success() || failure()
-        run: |
-          mv playwright-report/index.html playwright-report/index.html
-    - name: Move all report to today date
-        if: success() || failure()
-        run: mv playwright-report ${{steps.setup.outputs.DATE}}

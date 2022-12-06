@@ -1,4 +1,4 @@
-name: E2E Testing  (Develop)
+name: E2E Testing (Develop)
 
 on:
   push:
@@ -35,13 +35,13 @@ jobs:
         path: playwright-report/
         retention-days: 30
    - name: Generate report
-        if: success() || failure()
+        # if: success() || failure()
         run: |
           mv playwright-report/index.html playwright-report/index.html
-      - name: Move all report to today date
-        if: success() || failure()
+    - name: Move all report to today date
+        # if: success() || failure()
         run: mv playwright-report ${{steps.setup.outputs.DATE}}
-      - name: Send notification to slack
+    - name: Send notification to slack
         uses: 8398a7/action-slack@v2
         if: success() || failure()
         with:
