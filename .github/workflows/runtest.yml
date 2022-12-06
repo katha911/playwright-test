@@ -26,8 +26,7 @@ jobs:
           echo "::set-output name=DATE::$TODAY_DATE"
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           echo "::set-output name=BRANCH_NAME::$BRANCH_NAME"
-          echo "::set-output name=PROJECT::$PROJECT_NAME/develop/$TODAY_DATE"v
-    steps:
+          echo "::set-output name=PROJECT::$PROJECT_NAME/develop/$TODAY_DATE"
       - uses: actions/setup-node@v3
         with:
           node-version: 16
