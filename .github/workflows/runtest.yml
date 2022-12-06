@@ -14,7 +14,7 @@ env:
   PROJECT_NAME: 'playwright-test'
 
 jobs:
-   e2e:
+   test:
     name: E2E testing
     runs-on: ubuntu-latest
     steps:
