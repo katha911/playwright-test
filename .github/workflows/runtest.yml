@@ -43,13 +43,10 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-      - name: Move all report to today date
-        if: success() || failure()
-        run: mv cypress/results ${{steps.setup.outputs.DATE}}
       - name: Deploy reports
         uses: bounceapp/render-action@0.2.0
         with:
-          folder: './${{steps.setup.outputs.DATE}}'
+          folder: 'playwright-report/${{steps.setup.outputs.DATE}}'
           bucket: 'automated-tester/${{steps.setup.outputs.PROJECT}}'
         env:
           email: ${{ secrets.RENDER_EMAIL }}
@@ -64,7 +61,6 @@ jobs:
           author_name:
             Tester report
           text:
-            'Can check report at:
-            https://playwright-test.onrender.com/${{steps.setup.outputs.PROJECT}}/index.html'
+            'Can check report at: https://playwright-test.onrender.com/${{steps.setup.outputs.PROJECT}}/index.html'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
