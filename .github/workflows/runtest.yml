@@ -27,6 +27,7 @@ jobs:
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           echo "::set-output name=BRANCH_NAME::$BRANCH_NAME"
           echo "::set-output name=PROJECT::$PROJECT_NAME/develop/$TODAY_DATE"
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -62,7 +63,6 @@ jobs:
             Tester report
           text:
             'Can check report at:
-            http://automated-tester.s3-website-ap-southeast-1.amazonaws.com/${{steps.setup.outputs.PROJECT}}/index.html'
+            https://playwright-test.onrender.com/${{steps.setup.outputs.PROJECT}}/index.html'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
