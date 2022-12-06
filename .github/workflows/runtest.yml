@@ -46,7 +46,7 @@ jobs:
       - name: Deploy reports
         uses: bounceapp/render-action@0.2.0
         with:
-          folder: './${{steps.setup.outputs.DATE}}'
+          folder: 'playwright-report/index.html./${{steps.setup.outputs.DATE}}'
           bucket: 'automated-tester/${{steps.setup.outputs.PROJECT}}'
           bucket-region: 'SHA256:CUlRyv4TZ0vmHwmhsJkII/pz2cO4IgvR+ykqnRsOQFs'
         env:
