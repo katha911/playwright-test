@@ -37,21 +37,13 @@
 #         run: npx playwright install --with-deps
 #       - name: Run Playwright tests
 #         run: npx playwright test
-#       - uses: actions/upload-artifact@v3
-#         if: always()
-#         with:
-#           name: playwright-report
-#           path: playwright-report/
-#           retention-days: 30
 #       - name: Deploy reports
 #         uses: bounceapp/render-action@0.2.0
-#         with:
-#           path: 'playwright-report/${{steps.setup.outputs.DATE}}'
-#         env:
-#           email: ${{ secrets.RENDER_EMAIL }}
-#           password: ${{ secrets.RENDER_PASSWORD }}
-#           token: ${{ secrets.TOKEN }}
-#           service-id: ${{ secrets.RENDER_API_KEY }}
+#           with:
+#             email: ${{ secrets.RENDER_EMAIL }}
+#             password: ${{ secrets.RENDER_PASSWORD }}
+#             service-id: ${{ secrets.RENDER_SERVICE_ID }}
+#             api-key: ${{ secrets.RENDER_API_KEY }}
 #       - name: Send notification to slack
 #         uses: 8398a7/action-slack@v2
 #         if: success() || failure()
