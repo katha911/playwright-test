@@ -1,42 +1,40 @@
-# name: E2E Testing (Develop)
+name: E2E Testing (Develop)
 
-# on:
-#   push:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      - main
 
-#   repository_dispatch:
-#     types: trigger_internal
-#   schedule:
-#     - cron: '0 22 * * *'
+  repository_dispatch:
+    types: trigger_internal
+  schedule:
+    - cron: '0 22 * * *'
 
-# env:
-#   PROJECT_NAME: 'playwright-test'
+env:
+  PROJECT_NAME: 'playwright-test'
 
-# jobs:
-#   test:
-#     timeout-minutes: 60
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Setup
-#         if: success() || failure()
-#         id: setup
-#         run: |
-#           TODAY_DATE=`date +"%d.%m.%y"`
-#           echo "::set-output name=DATE::$TODAY_DATE"
-#           BRANCH_NAME=${GITHUB_REF#refs/heads/}
-#           echo "::set-output name=BRANCH_NAME::$BRANCH_NAME"
-#           echo "::set-output name=PROJECT::$PROJECT_NAME/develop/$TODAY_DATE"
-#       - uses: actions/checkout@v3
-#       - uses: actions/setup-node@v3
-#         with:
-#           node-version: 16
-#       - name: Install dependencies
-#         run: npm ci
-#       - name: Install Playwright Browsers
-#         run: npx playwright install --with-deps
-#       - name: Run Playwright tests
-#         run: npx playwright test
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Run Playwright tests
+      run: npx playwright test
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: playwright-report
+        path: playwright-report
+        retention-days: 30
+
 #       - name: Deploy reports
 #         uses: bounceapp/render-action@0.2.0
 #           with:
